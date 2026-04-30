@@ -2653,6 +2653,26 @@ tbody tr:hover td { background: rgba(27,58,107,0.025); }
 .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(26,52,96,0.3) !important; }
 .btn-accent:hover  { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(212,175,55,0.35) !important; }
 </style>
+<script>
+// 📶 Offline Mode - Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/aqrat-pro/sw.js')
+      .then(reg => console.log('SW registered'))
+      .catch(err => console.log('SW error:', err));
+  });
+}
+
+// إشعار عند انقطاع الإنترنت
+window.addEventListener('online',  () => {
+  if(typeof showInAppNotification === 'function')
+    showInAppNotification('✅ عاد الاتصال بالإنترنت', 'تمت المزامنة', 'success');
+});
+window.addEventListener('offline', () => {
+  if(typeof showInAppNotification === 'function')
+    showInAppNotification('📵 لا يوجد إنترنت', 'التطبيق يعمل في وضع عدم الاتصال', 'warning');
+});
+</script>
 </head>
 <body>
 
